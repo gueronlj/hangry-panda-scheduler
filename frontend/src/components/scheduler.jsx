@@ -29,27 +29,18 @@ const Schedule = () => {
    const renderTimeCell = (data) => <i style='color: green'>{data.text}</i>;
 
    return(
-      <Scheduler 
-         dataSource={schedulerData}
-         currentView="week"
-         timeZone="America/New_York"
-         defaultCurrentView="week"
-         defaultCurrentDate={currentDate}
-         height={580}
-         cellDuration={60}
-         firstDayOfWeek={0}
-         startDayHour={6}
-         endDayHour={26}>
-         
-         <Resource
-            fieldExpr="ownerId"
-            dataSource={employees}/>
-
-         <View 
-            type="week" 
-            timeCellTemplate={renderTimeCell} />
-
-      </Scheduler>
+      <Scheduler
+      timeZone="America/Los_Angeles"
+      dataSource={schedulerData}
+      defaultCurrentView="timelineMonth"
+      defaultCurrentDate={currentDate}
+      height={580}
+      groups={employees}
+      cellDuration={60}
+      firstDayOfWeek={0}
+      startDayHour={8}
+      endDayHour={20}>
+    </Scheduler>
    )
 }
 

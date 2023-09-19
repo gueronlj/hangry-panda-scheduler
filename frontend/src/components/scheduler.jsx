@@ -1,8 +1,14 @@
 import React from 'react';
 import 'devextreme/dist/css/dx.light.css';
 import { Scheduler, View, Resource } from 'devextreme-react/scheduler';
+import sendMessage from '../utilities/sendMessage'; 
 
 const Schedule = () => {
+
+   const handleTestText = () => {
+      sendMessage()
+   }
+
    const currentDate = new Date(2023, 9, 16)
 
    const schedulerData = [
@@ -29,18 +35,22 @@ const Schedule = () => {
    const renderTimeCell = (data) => <i style='color: green'>{data.text}</i>;
 
    return(
-      <Scheduler
-      timeZone="America/Los_Angeles"
-      dataSource={schedulerData}
-      defaultCurrentView="timelineMonth"
-      defaultCurrentDate={currentDate}
-      height={580}
-      groups={employees}
-      cellDuration={60}
-      firstDayOfWeek={0}
-      startDayHour={8}
-      endDayHour={20}>
-    </Scheduler>
+      <div>
+         <button onClick={handleTestText}>Send Test Text</button>
+         <Scheduler
+            timeZone="America/Los_Angeles"
+            dataSource={schedulerData}
+            defaultCurrentView="timelineMonth"
+            defaultCurrentDate={currentDate}
+            height={580}
+            groups={employees}
+            cellDuration={60}
+            firstDayOfWeek={0}
+            startDayHour={8}
+            endDayHour={20}>
+         </Scheduler>
+        
+      </div>
    )
 }
 

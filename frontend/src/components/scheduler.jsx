@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'devextreme/dist/css/dx.material.blue.dark.css';
 import { Scheduler, View, Resource } from 'devextreme-react/scheduler';
 import sendMessage from '../utilities/sendMessage'; 
@@ -14,23 +14,14 @@ const remoteData = createStore({
    updateUrl: serviceUrl + '/UpdateAction',
    deleteUrl: serviceUrl + '/DeleteAction'
 });
-/*__________________TO DO END____________________ */
 
-const Schedule = () => {
-
-   const handleTestText = () => {
-      sendMessage()
-   }
-
-   const currentDate = new Date(2023, 9, 16)
-
-   const schedulerData = [
+const schedulerData = [
       {
          text: 'Google AdWords Strategy',
          ownerId: [2],
          startDate: new Date("2023-01-10T09:00:00.000Z"),
          endDate: new Date("2023-01-10T10:30:00.000Z")
-      }, 
+      },
       {
          text: 'New Brochures',
          ownerId: [1],
@@ -38,6 +29,21 @@ const Schedule = () => {
          endDate: new Date("2023-01-10T14:15:00.000Z")
       }
    ];
+/*__________________TO DO END____________________ */
+
+const Schedule = () => {
+
+   const [tempData, setTempData] = useState(schedulerData)
+
+   const handleTestText = () => {
+      sendMessage()
+   }
+
+   const handleAppointmentAdded = (stuff) => {
+      setTempData({ ...tempData, text:'this is a test'})
+   }
+
+   const currentDate = new Date(2023, 9, 16)
 
    const employees = [
       { text: 'Samantha Bright', id: 1, color: '#cb6bb2' },
@@ -52,6 +58,7 @@ const Schedule = () => {
 
    return(
       <div>
+         <h3>{tempData.text}</h3> <h3>{tempData[0].ownerId}</h3>
          <button onClick={handleTestText}>Send Text</button>
          <Scheduler
             remoteFiltering:false
@@ -66,7 +73,7 @@ const Schedule = () => {
             startDayHour={6}
             endDayHour={25}
             showAllDayPanel={false}
-            onAppointmentAdded:null
+            onAppointmentAdded={handleAppointmentAdded}
             onAppointmentAdding:null
             onAppointmentClick:null
             onAppointmentContextMenu:null

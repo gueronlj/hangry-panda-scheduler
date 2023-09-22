@@ -55,7 +55,7 @@ const Schedule = () => {
          <button onClick={handleTestText}>Send Text</button>
          <Scheduler
             remoteFiltering:false
-            timeZone="America/Los_Angeles"
+            timeZone="America/New_York"
             dataSource={schedulerData}
             defaultCurrentView="week"
             defaultCurrentDate={currentDate}
@@ -64,9 +64,9 @@ const Schedule = () => {
             cellDuration={120}
             firstDayOfWeek={0}
             startDayHour={6}
-            endDayHour={25}
+            endDayHour={26}
             showAllDayPanel={false}
-            onAppointmentAdded:null
+            onAppointmentAdded = {(appointment) => {console.log('appoitment added'); schedulerData.push(appointment); console.log(schedulerData)}}
             onAppointmentAdding:null
             onAppointmentClick:null
             onAppointmentContextMenu:null
@@ -74,15 +74,16 @@ const Schedule = () => {
             onAppointmentDeleted= {() => {console.log('appointment deleted');}}
             onAppointmentDeleting = {() => {console.log('deleting appoitment');}}
             onAppointmentFormOpening:null
-            onAppointmentRendered:null
+            onAppointmentRendered = {() => {console.log('appoitment rendered');}}
             onAppointmentTooltipShowing:null
             onAppointmentUpdated:null
             onAppointmentUpdating:null
-            onCellClick:null
-            onCellContextMenu:null
+            onCellClick = {() => {console.log('cell clicked');}}
+            onCellContextMenu = {() => {console.log('cell context menu opened');}}
             onInitialized:null
             onOptionChanged:null
-            showCurrentTimeIndicator:true>
+            showCurrentTimeIndicator:true
+            useDropDownViewSwitcher={false}>
 
          </Scheduler>     
       </div>

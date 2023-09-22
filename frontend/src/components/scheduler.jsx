@@ -3,6 +3,7 @@ import 'devextreme/dist/css/dx.material.blue.light.css';
 import { Scheduler, View, Resource } from 'devextreme-react/scheduler';
 import sendMessage from '../utilities/sendMessage'; 
 import { createStore } from 'devextreme-aspnet-data-nojquery';
+import { writeToDB, deleteFromDB, updateDB } from '../utilities/db';
 
 /*__________________TO DO START____________________ */
 const serviceUrl = 'https://mydomain.com/MyDataService';
@@ -42,6 +43,17 @@ const Schedule = () => {
 
    const handleAppointmentAdded = ( newData ) => {
       console.log('Appointment added');
+      writeToDB(newData.appointmentData);
+   }
+
+   const handleAppointmentDeleted = (removedData) => {
+      console.log(('Appointment deleted'));
+     deleteFromDB(removedData.appointmentData);
+   }
+
+   const handleAppointmentUpdated = (data) => {
+      console.log('Appointment updated');
+      updateDB(data.appointmentData)
    }
 
    const currentDate = new Date(2023, 9, 16)
@@ -51,11 +63,6 @@ const Schedule = () => {
       { text: 'John Heart', id: 2, color: '#56ca85' },
       { text: 'Gordon Ramsay', id: 3, color: '#26ca00' }
    ];
-
-   const renderTimeCell = () => {
-      console.log('rendering time cell');
-      return <div>testing</div>
-   };
 
    return(
       <div>
@@ -73,18 +80,18 @@ const Schedule = () => {
             startDayHour={6}
             endDayHour={26}
             showAllDayPanel={false}
-            onAppointmentAdded={handleAppointmentAdded}
+            onAppointmentAdded = {handleAppointmentAdded}
             onAppointmentAdding:null
             onAppointmentClick:null
             onAppointmentContextMenu:null
             onAppointmentDblClick:null
-            onAppointmentDeleted= {() => {console.log('appointment deleted');}}
-            onAppointmentDeleting = {() => {console.log('deleting appoitment');}}
+            onAppointmentDeleted = {handleAppointmentDeleted}
+            onAppointmentDeleting = {() => {console.log('deleting appointment');}}
             onAppointmentFormOpening:null
-            onAppointmentRendered = {() => {console.log('appoitment rendered');}}
+            onAppointmentRendered = {() => {console.log('appointment rendered');}}
             onAppointmentTooltipShowing:null
-            onAppointmentUpdated:null
-            onAppointmentUpdating:null
+            onAppointmentUpdated = {handleAppointmentUpdated}
+            onAppointmentUpdating = {() => {console.log('updating appointment');}}
             onCellClick = {() => {console.log('cell clicked');}}
             onCellContextMenu = {() => {console.log('cell context menu opened');}}
             onInitialized:null

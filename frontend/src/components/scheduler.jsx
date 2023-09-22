@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import 'devextreme/dist/css/dx.material.blue.dark.css';
+import 'devextreme/dist/css/dx.material.blue.light.css';
 import { Scheduler, View, Resource } from 'devextreme-react/scheduler';
 import sendMessage from '../utilities/sendMessage'; 
 import { createStore } from 'devextreme-aspnet-data-nojquery';
@@ -37,10 +37,11 @@ const Schedule = () => {
 
    const handleTestText = () => {
       sendMessage()
+      console.log('btn clicked');
    }
 
-   const handleAppointmentAdded = (stuff) => {
-      setTempData({ ...tempData, text:'this is a test'})
+   const handleAppointmentAdded = ( newData ) => {
+      console.log('Appointment added');
    }
 
    const currentDate = new Date(2023, 9, 16)
@@ -58,8 +59,7 @@ const Schedule = () => {
 
    return(
       <div>
-         <h3>{tempData.text}</h3> <h3>{tempData[0].ownerId}</h3>
-         <button onClick={handleTestText}>Send Text</button>
+         <h3>{tempData.text}</h3>
          <Scheduler
             remoteFiltering:false
             timeZone="America/New_York"

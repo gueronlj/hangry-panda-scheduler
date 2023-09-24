@@ -1,17 +1,33 @@
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose')
+const db = mongoose.connection;
 const PORT = process.env.PORT || 3000;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 app.get('/', (request, response) => {
    response.send('Hello, this is a Bun 1.0 server')
 })
 
-app.get('/data', (req, res) => {
+app.get('/schedule', (req, res) => {
    res.json({
-      data: "data here"
+      data: "get all appointments"
    })
 })
+
+app.get(`/appointment/?=id`, (req, res) => {
+   res.json({
+      data: 'get single appointment'
+   })
+})
+
+mongoose.connect(MONGODB_URI)
+
+db.on('error', (error) => console.log(error.message + ' is Mongod not running?'));
+
+db.on('connected', () => console.log('connected to MongoDB'));
+
+db.on('disconnected', () => console.log('disconnected from MongoDB'));
 
 app.listen( PORT, () => {
    console.log(`DnDScheduler server running on port ${PORT}`);

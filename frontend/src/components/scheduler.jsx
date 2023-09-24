@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'devextreme/dist/css/dx.material.blue.light.css';
-import { Scheduler, View, Resource } from 'devextreme-react/scheduler';
+import { Scheduler } from 'devextreme-react/scheduler';
 import sendMessage from '../utilities/sendMessage'; 
 import { createStore } from 'devextreme-aspnet-data-nojquery';
 import { writeToDB, deleteFromDB, updateDB } from '../utilities/db';

@@ -4,15 +4,16 @@ const mongoose = require('mongoose')
 const db = mongoose.connection;
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
+const Appointment = require('./models/appointment.js')
 
 app.get('/', (request, response) => {
    response.send('Hello, this is a Bun 1.0 server')
 })
 
-app.get('/schedule', (req, res) => {
-   res.json({
-      data: "get all appointments"
-   })
+app.get('/schedule', async (req, res) => {
+   const appointments = await Appointment.find({})
+   res.json(appointments)
+   console.log(appointments);
 })
 
 app.get(`/appointment/?=id`, (req, res) => {

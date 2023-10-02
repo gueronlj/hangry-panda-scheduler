@@ -1,3 +1,5 @@
+import { log } from "console";
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose')
@@ -6,19 +8,35 @@ const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 const Appointment = require('./models/appointment.js')
 
+app.use(express.json());
+
 app.get('/', (request, response) => {
    response.send('Hello, this is a Bun 1.0 server')
 })
 
 app.get('/schedule', async (req, res) => {
-   const appointments = await Appointment.find({})
-   res.json(appointments)
-   console.log(appointments);
+   try{
+      const appointments = await Appointment.find({})
+      res.json(appointments)
+      console.log(appointments);
+   } catch (error) {
+      res.send(error.message)
+   }  
 })
 
-app.get(`/appointment/?=id`, (req, res) => {
+app.post('/schedule', (req, res) => {
+   console.log(req.body);
+   const newAppointment = new Appointment(req.body);
+   newAppointment.save().then((document) => {
+      res.json(document)
+   }).catch((error) => {
+      res.send(error.message)
+   })
+})
+
+app.get(`/appointment/:id`, (req, res) => {
    res.json({
-      data: 'get single appointment'
+      id: req.params.id
    })
 })
 

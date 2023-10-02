@@ -5,8 +5,8 @@ const appointmentSchema = new Schema({
    allDay: Boolean,
    text: String,
    ownerId: Array,
-   startDate: Date,
-   endDate: Date,
+   startDate: String,
+   endDate: String,
    details: String,
 });
 

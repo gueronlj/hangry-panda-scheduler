@@ -14,6 +14,7 @@ app.get('/', (request, response) => {
    response.send('Hello, this is a Bun 1.0 server')
 })
 
+//================= Find all appointments
 app.get('/schedule', async (req, res) => {
    try{
       const appointments = await Appointment.find({})
@@ -24,8 +25,8 @@ app.get('/schedule', async (req, res) => {
    }  
 })
 
+//================= Create new appointment
 app.post('/schedule', (req, res) => {
-   console.log(req.body);
    const newAppointment = new Appointment(req.body);
    newAppointment.save().then((document) => {
       res.json(document)
@@ -34,9 +35,33 @@ app.post('/schedule', (req, res) => {
    })
 })
 
+//================= update one by ID
+app.put('/schedule/:id', (req, res) => {
+   const newData = req.body;
+   const oldData = Appointment.findById(req.params.id);
+   oldData.updateOne(newData).then((document) => {
+      res.json(document);
+   }).catch((error) => {
+      res.send(error.message)
+   })
+})
+
+//================= Delete by ID
+app.delete('/schedule/:id', (req, res) => {
+   const targetDoc = Appointment.findById(req.params.id);
+   targetDoc.deleteOne().then((document) => {
+      res.json(document);
+   }).catch((error) => {
+      res.send(error.message)
+   })
+})
+
+//================= Find by ID
 app.get(`/appointment/:id`, (req, res) => {
-   res.json({
-      id: req.params.id
+   Appointment.findById(req.params.id).then((document) => {
+      res.json(document);
+   }).catch((error) => {
+      res.send(error.message)
    })
 })
 

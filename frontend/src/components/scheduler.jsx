@@ -16,25 +16,23 @@ const remoteData = createStore({
    deleteUrl: serviceUrl + '/DeleteAction'
 });
 
-const schedulerData = [
+let schedulerData = [
       {
          text: 'Google AdWords Strategy',
          ownerId: [2],
-         startDate: new Date("2023-01-10T09:00:00.000Z"),
-         endDate: new Date("2023-01-10T10:30:00.000Z")
+         startDate: new Date("2023-10-10T09:00:00.000Z"),
+         endDate: new Date("2023-10-10T23:30:00.000Z")
       },
       {
          text: 'New Brochures',
          ownerId: [1],
-         startDate: new Date("2023-01-10T11:30:00.000Z"),
-         endDate: new Date("2023-01-10T14:15:00.000Z")
+         startDate: new Date("2023-10-10T11:30:00.000Z"),
+         endDate: new Date("2023-10-10T22:15:00.000Z")
       }
    ];
 /*__________________TO DO END____________________ */
 
 const Schedule = () => {
-
-   const [tempData, setTempData] = useState(schedulerData)
 
    const handleTestText = () => {
       sendMessage()
@@ -56,7 +54,7 @@ const Schedule = () => {
       updateDB(data.appointmentData)
    }
 
-   const currentDate = new Date(2023, 9, 16)
+   const currentDate = new Date()
 
    const employees = [
       { text: 'Samantha Bright', id: 1, color: '#cb6bb2' },
@@ -66,7 +64,6 @@ const Schedule = () => {
 
    return(
       <div>
-         <h3>{tempData.text}</h3>
          <Scheduler
             remoteFiltering:false
             timeZone="America/New_York"

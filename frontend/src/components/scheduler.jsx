@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import 'devextreme/dist/css/dx.material.blue.light.css';
 import { Scheduler } from 'devextreme-react/scheduler';
-import sendMessage from '../utilities/sendMessage'; 
+import sendMessage from '../utilities/sendMessage';
+import { writeToDB, deleteFromDB, updateDB } from '../utilities/db'; 
 import { createStore } from 'devextreme-aspnet-data-nojquery';
-import { writeToDB, deleteFromDB, updateDB } from '../utilities/db';
 
 /*__________________TO DO START____________________ */
-const serviceUrl = 'https://mydomain.com/MyDataService';
+// const serviceUrl = 'https://mydomain.com/MyDataService';
 
-const remoteData = createStore({
-   key: 'ID',
-   loadUrl: serviceUrl + '/GetAction',
-   insertUrl: serviceUrl + '/InsertAction',
-   updateUrl: serviceUrl + '/UpdateAction',
-   deleteUrl: serviceUrl + '/DeleteAction'
-});
+// const remoteData = createStore({
+//    key: 'ID',
+//    loadUrl: serviceUrl + '/GetAction',
+//    insertUrl: serviceUrl + '/InsertAction',
+//    updateUrl: serviceUrl + '/UpdateAction',
+//    deleteUrl: serviceUrl + '/DeleteAction'
+// });
+/*__________________TO DO END____________________ */
 
+const employees = [
+   { text: 'Samantha Bright', id: 1, color: '#cb6bb2' },
+   { text: 'John Heart', id: 2, color: '#56ca85' },
+   { text: 'Gordon Ramsay', id: 3, color: '#26ca00' }
+];
+
+const currentDate = new Date()
 let schedulerData = [
       {
          text: 'Google AdWords Strategy',
@@ -30,7 +38,6 @@ let schedulerData = [
          endDate: new Date("2023-10-10T22:15:00.000Z")
       }
    ];
-/*__________________TO DO END____________________ */
 
 const Schedule = () => {
 
@@ -41,26 +48,15 @@ const Schedule = () => {
 
    const handleAppointmentAdded = ( newData ) => {
       console.log('Appointment added');
-      writeToDB(newData.appointmentData);
    }
 
    const handleAppointmentDeleted = (removedData) => {
       console.log(('Appointment deleted'));
-     deleteFromDB(removedData.appointmentData);
    }
 
    const handleAppointmentUpdated = (data) => {
       console.log('Appointment updated');
-      updateDB(data.appointmentData)
    }
-
-   const currentDate = new Date()
-
-   const employees = [
-      { text: 'Samantha Bright', id: 1, color: '#cb6bb2' },
-      { text: 'John Heart', id: 2, color: '#56ca85' },
-      { text: 'Gordon Ramsay', id: 3, color: '#26ca00' }
-   ];
 
    return(
       <div>
